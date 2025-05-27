@@ -10,12 +10,7 @@ public class Player {
 
     private String name;
     private String nation;
-    private String role;
     private String style;
-    private int age;
-    private int ranking;
-    private double runs;
-    private double wickets;
     private String team;
 
 }

@@ -15,7 +15,7 @@ public class JdbcConfig {
         HikariConfig config = new HikariConfig();
 
         config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/cricfuzz");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/player");
         config.setUsername("postgres");
         config.setPassword("1234");
 
