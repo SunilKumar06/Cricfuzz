@@ -22,6 +22,11 @@ public class PlayerRepoDAO {
         return namedParameterJdbcTemplate.query(SqlConstants.GET_ALL,new BeanPropertyRowMapper<>(Player.class));
     }
 
+    public List<Player> get1()
+    {
+        return namedParameterJdbcTemplate.query(SqlConstants.GET1,new BeanPropertyRowMapper<>(Player.class));
+    }
+
     @Transactional
     public int save(Player player)
     {
