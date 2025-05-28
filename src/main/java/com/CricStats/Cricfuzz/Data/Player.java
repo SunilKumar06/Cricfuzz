@@ -1,4 +1,4 @@
-package com.CricStats.Cricfuzz.Layers;
+package com.CricStats.Cricfuzz.Data;
 
 import lombok.Getter;
 import lombok.Setter;
