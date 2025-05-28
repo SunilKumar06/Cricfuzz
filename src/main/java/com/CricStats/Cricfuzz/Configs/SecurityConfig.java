@@ -14,15 +14,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(HttpMethod.GET,"/player/**").hasAnyRole("USER","ADMIN");
-                    auth.requestMatchers(HttpMethod.POST,"/player/**").hasAnyRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.PUT,"/player/**").hasAnyRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.DELETE,"/player/**").hasAnyRole("ADMIN");
-                    auth.anyRequest().authenticated();
-                }).formLogin(Customizer.withDefaults()).oauth2Client(Customizer.withDefaults()).build();
+        @Bean
+        SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            return http.authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.GET,"/player/**").hasAnyRole("USER","ADMIN");
+                auth.requestMatchers(HttpMethod.POST,"/player/**").hasAnyRole("ADMIN");
+                auth.requestMatchers(HttpMethod.PUT,"/player/**").hasAnyRole("ADMIN");
+                auth.requestMatchers(HttpMethod.DELETE,"/player/**").hasAnyRole("ADMIN");
+                auth.anyRequest().authenticated();
+            }).formLogin(Customizer.withDefaults()).oauth2Client(Customizer.withDefaults()).build();
 
+        }
     }
-}
+
+
