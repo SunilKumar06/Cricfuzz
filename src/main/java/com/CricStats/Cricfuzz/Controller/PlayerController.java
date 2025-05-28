@@ -20,7 +20,7 @@ public class PlayerController {
         return playerRepoDAO.get();
     }
 
-    @GetMapping
+    @GetMapping("/player/name")
     public List<Player> getPlayer1(@RequestParam String name)
     {
         return playerRepoDAO.get1();

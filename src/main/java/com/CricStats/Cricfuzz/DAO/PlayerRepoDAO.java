@@ -51,5 +51,4 @@ public class PlayerRepoDAO {
         return namedParameterJdbcTemplate.update(SqlConstants.DELETE,Map.of("name", name));
     }
 
-
 }

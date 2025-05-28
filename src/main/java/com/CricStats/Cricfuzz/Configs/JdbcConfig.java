@@ -28,7 +28,6 @@ public class JdbcConfig {
         return new HikariDataSource(config);
 
     }
-
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
