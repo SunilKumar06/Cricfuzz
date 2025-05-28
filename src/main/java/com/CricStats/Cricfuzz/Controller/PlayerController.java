@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/player")
+@RequestMapping("/player")
 public class PlayerController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class PlayerController {
         return playerRepoDAO.get();
     }
 
-    @GetMapping("/player/name")
+    @GetMapping("/name")
     public List<Player> getPlayer1(@RequestParam String name)
     {
         return playerRepoDAO.get1();
@@ -41,7 +41,7 @@ public class PlayerController {
     }
 
     @DeleteMapping
-    public String deletePlayer(String name)
+    public String deletePlayer(@RequestParam String name)
     {
         playerRepoDAO.delete(name);
         return "Deleted Successfully";
