@@ -8,21 +8,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/players")
 public class PlayerController {
 
-
+    @Autowired
     private PlayerRepoDAO playerRepoDAO;
 
-    @Autowired
-    public PlayerController(PlayerRepoDAO playerRepoDAO) {
-        this.playerRepoDAO = playerRepoDAO;
-    }
-
-    @GetMapping
+    @GetMapping(path = "/player")
     public List<Player> getPlayers()
     {
         return playerRepoDAO.get();
+    }
+
+    @GetMapping("/secure")
+    public String secure() {
+        return "This is a secure page";
     }
 
     @PostMapping

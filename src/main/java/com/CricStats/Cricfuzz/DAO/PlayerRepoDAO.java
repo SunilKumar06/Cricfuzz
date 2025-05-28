@@ -1,10 +1,12 @@
 package com.CricStats.Cricfuzz.DAO;
 
 import com.CricStats.Cricfuzz.Data.Player;
+import com.CricStats.Cricfuzz.Data.SqlConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -12,42 +14,36 @@ import java.util.Map;
 @Repository
 public class PlayerRepoDAO {
 
-
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Autowired
-    public PlayerRepoDAO(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Player> get()
     {
-        String sql = "SELECT * FROM player";
-        return namedParameterJdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Player.class));
+        return namedParameterJdbcTemplate.query(SqlConstants.GET_ALL,new BeanPropertyRowMapper<>(Player.class));
     }
 
+    @Transactional
     public int save(Player player)
     {
-        String sql = "INSERT INTO player (name,nation,style,team) VALUES (:name,:nation,:style,:team)";
-        return namedParameterJdbcTemplate.update(sql, Map.of("name",player.getName(),
+        return namedParameterJdbcTemplate.update(SqlConstants.SAVE, Map.of("name",player.getName(),
                                                                 "nation",player.getNation(),
                                                                 "style",player.getStyle(),
                                                                 "team",player.getTeam()));
     }
 
+    @Transactional
     public int update(Player player)
     {
-        String sql = "UPDATE player SET name = :name, nation = :nation, style = :style, team = :team";
-        return namedParameterJdbcTemplate.update(sql, Map.of("name",player.getName(),
+        return namedParameterJdbcTemplate.update(SqlConstants.UPDATE, Map.of("name",player.getName(),
                 "nation",player.getNation(),
                 "style",player.getStyle(),
                 "team",player.getTeam()));
     }
 
+    @Transactional
     public int delete(String name)
     {
-        String sql = " DELETE FROM player WHERE name = :name";
-        return namedParameterJdbcTemplate.update(sql,Map.of("name", name));
+        return namedParameterJdbcTemplate.update(SqlConstants.DELETE,Map.of("name", name));
     }
 
 
