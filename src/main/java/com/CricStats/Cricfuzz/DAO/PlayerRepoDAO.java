@@ -12,8 +12,13 @@ import java.util.Map;
 @Repository
 public class PlayerRepoDAO {
 
-    @Autowired
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    public PlayerRepoDAO(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     public List<Player> get()
     {

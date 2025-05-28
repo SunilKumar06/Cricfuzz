@@ -11,8 +11,13 @@ import java.util.List;
 @RequestMapping(path = "/players")
 public class PlayerController {
 
-    @Autowired
+
     private PlayerRepoDAO playerRepoDAO;
+
+    @Autowired
+    public PlayerController(PlayerRepoDAO playerRepoDAO) {
+        this.playerRepoDAO = playerRepoDAO;
+    }
 
     @GetMapping
     public List<Player> getPlayers()
