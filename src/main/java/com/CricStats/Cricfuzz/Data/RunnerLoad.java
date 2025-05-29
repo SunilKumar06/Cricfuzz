@@ -12,9 +12,9 @@ public class RunnerLoad {
     @Bean
     CommandLineRunner commandLineRunner(PlayerRepoDAO playerRepoDAO){
         return args -> {
-            Player Dhoni = new Player("MS Dhoni","India","W-Batsman","CSK");
+            /*Player Dhoni = new Player("MS Dhoni","India","W-Batsman","CSK");
             playerRepoDAO.save(Dhoni);
-            System.out.println("Success: Player Record Saved");
+            System.out.println("Success: Player Record Saved");*/
         };
     }
 }
