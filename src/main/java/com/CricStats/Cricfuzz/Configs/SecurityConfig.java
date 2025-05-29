@@ -7,7 +7,16 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -22,9 +31,28 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.PUT,"/player/**").hasAnyRole("ADMIN");
                 auth.requestMatchers(HttpMethod.DELETE,"/player/**").hasAnyRole("ADMIN");
                 auth.anyRequest().authenticated();
-            }).formLogin(Customizer.withDefaults()).oauth2Client(Customizer.withDefaults()).build();
+            }).oauth2Login(oauth -> oauth.userInfoEndpoint(userInfo -> userInfo.userService(customoAuth2userSerrvice()))).build();
 
         }
+
+        @Bean
+        public OAuth2UserService<OAuth2UserRequest, OAuth2User> customoAuth2userSerrvice() {
+            return userRequest ->
+            {
+                OAuth2User oauth2User = new DefaultOAuth2UserService().loadUser(userRequest);
+                String login = oauth2User.getAttribute("login");
+                if (login == null) {
+                    throw new IllegalArgumentException("Not Found");
+                }
+                List<GrantedAuthority> authorities = List.of(
+                        "UserName".equalsIgnoreCase(login)
+                                ? new SimpleGrantedAuthority("ROLE_ADMIN")
+                                : new SimpleGrantedAuthority("ROLE_USER")
+                );
+                return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), "login");
+            };
+        }
+
     }
 
 
