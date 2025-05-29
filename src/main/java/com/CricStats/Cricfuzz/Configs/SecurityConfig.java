@@ -31,12 +31,12 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.PUT,"/player/**").hasAnyRole("ADMIN");
                 auth.requestMatchers(HttpMethod.DELETE,"/player/**").hasAnyRole("ADMIN");
                 auth.anyRequest().authenticated();
-            }).oauth2Login(oauth -> oauth.userInfoEndpoint(userInfo -> userInfo.userService(customoAuth2userSerrvice()))).build();
+            }).oauth2Login(oauth -> oauth.userInfoEndpoint(userInfo -> userInfo.userService(customoAuth2userService()))).build();
 
         }
 
         @Bean
-        public OAuth2UserService<OAuth2UserRequest, OAuth2User> customoAuth2userSerrvice() {
+        public OAuth2UserService<OAuth2UserRequest, OAuth2User> customoAuth2userService() {
             return userRequest ->
             {
                 OAuth2User oauth2User = new DefaultOAuth2UserService().loadUser(userRequest);
@@ -45,7 +45,7 @@ public class SecurityConfig {
                     throw new IllegalArgumentException("Not Found");
                 }
                 List<GrantedAuthority> authorities = List.of(
-                        "UserName".equalsIgnoreCase(login)
+                        "SunilKumar06".equalsIgnoreCase(login)
                                 ? new SimpleGrantedAuthority("ROLE_ADMIN")
                                 : new SimpleGrantedAuthority("ROLE_USER")
                 );
