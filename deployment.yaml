@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Cricfuzz
+  labels:
+    app: Cricfuzz
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: Cricfuzz
+  template:
+    metadata:
+      labels:
+        app: Cricfuzz
+    spec:
+      containers:
+        - name: Cricfuzz
+          image: cricfuzz:latest
+          ports:
+            - containerPort: 8085
